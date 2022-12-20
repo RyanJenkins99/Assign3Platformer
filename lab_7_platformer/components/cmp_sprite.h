@@ -19,6 +19,7 @@ public:
 
 
   void setTexure(std::shared_ptr<sf::Texture> tex);
+//  std::shared_ptr<sf::Texture
 };
 
 class ShapeComponent : public Component {

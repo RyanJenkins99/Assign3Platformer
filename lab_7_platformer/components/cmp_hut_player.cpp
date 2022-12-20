@@ -4,7 +4,7 @@
 using namespace std;
 using namespace sf;
 
-void HurtComponent::update(double dt) {
+void HurtComponent::update(double dt) {//explain what's going on here
   if (auto pl = _player.lock()) {
     if (length(pl->getPosition() - _parent->getPosition()) < 25.0) {
       pl->setForDelete();
