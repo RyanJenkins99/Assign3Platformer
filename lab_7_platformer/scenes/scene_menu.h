@@ -10,4 +10,8 @@ public:
   void Load() override;
 
   void Update(const double& dt) override;
+
+    void Render();
+
+    void UnLoad();
 };

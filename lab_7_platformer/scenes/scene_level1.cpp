@@ -5,6 +5,7 @@
 #include <LevelSystem.h>
 #include <iostream>
 #include <thread>
+#include "SFML/Audio.hpp"
 
 using namespace std;
 using namespace sf;
@@ -12,6 +13,7 @@ using namespace sf;
 static shared_ptr<Entity> player;
 
 void Level1Scene::Load() {
+
   cout << " Scene 1 Load" << endl;
   ls::loadLevelFile("res/level_1.txt", 40.0f);
 
@@ -29,6 +31,24 @@ void Level1Scene::Load() {
 
     player->addComponent<PlayerPhysicsComponent>(Vector2f(20.f, 30.f));
   }
+
+    // Create Enemy
+    {
+        auto enemy = makeEntity();
+        enemy->setPosition(ls::getTilePosition(ls::findTiles(ls::ENEMY)[0]) +
+                           Vector2f(0, 24));
+        // *********************************
+        // Add HurtComponent
+
+        // Add ShapeComponent, Red 16.f Circle
+
+
+
+
+        // Add EnemyAIComponent
+
+        // *********************************
+    }
 
   // Add physics colliders to level tiles.
   {
@@ -68,3 +88,5 @@ void Level1Scene::Render() {
   ls::render(Engine::GetWindow());
   Scene::Render();
 }
+
+
