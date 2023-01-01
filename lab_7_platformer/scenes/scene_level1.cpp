@@ -6,6 +6,8 @@
 #include <iostream>
 #include <thread>
 #include "SFML/Audio.hpp"
+#include <SFML/Graphics.hpp>
+#include "../components/cmp_sprite.h"
 
 using namespace std;
 using namespace sf;
@@ -22,6 +24,9 @@ void Level1Scene::Load() {
 
   // Create player
   {
+
+
+
     player = makeEntity();
     player->setPosition(ls::getTilePosition(ls::findTiles(ls::START)[0]));
     auto s = player->addComponent<ShapeComponent>();

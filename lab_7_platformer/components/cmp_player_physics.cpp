@@ -2,6 +2,7 @@
 #include "system_physics.h"
 #include <LevelSystem.h>
 #include <SFML/Window/Keyboard.hpp>
+#include "../components/PlayerAudioComponent.h"
 
 using namespace std;
 using namespace sf;
@@ -56,10 +57,13 @@ void PlayerPhysicsComponent::update(double dt) {
   // Handle Jump
   if (Keyboard::isKeyPressed(Keyboard::Up)) {
     _grounded = isGrounded();
+
     if (_grounded) {
       setVelocity(Vector2f(getVelocity().x, 0.f));
       teleport(Vector2f(pos.x, pos.y - 2.0f));
       impulse(Vector2f(0, -6.f));
+        PlayerAudioComponent::play("res/music/jump1.wav");
+
     }
   }
 

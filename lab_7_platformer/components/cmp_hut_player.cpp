@@ -1,4 +1,5 @@
 #include "cmp_hurt_player.h"
+#include <LevelSystem.h>
 #include <engine.h>
 
 using namespace std;
