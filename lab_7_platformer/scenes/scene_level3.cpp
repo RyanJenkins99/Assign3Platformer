@@ -3,6 +3,7 @@
 #include "../components/cmp_player_physics.h"
 #include "../game.h"
 #include "../components/cmp_bullet.h"
+#include "../components/cmp_enemy_turret.h"
 #include <LevelSystem.h>
 #include <iostream>
 using namespace std;
@@ -12,7 +13,7 @@ static shared_ptr<Entity> player;
 
 void Level3Scene::Load() {
     cout << "Scene 3 Load" << endl;
-    ls::loadLevelFile("res/level_3.txt", 40.0f);
+    ls::loadLevelFile("res/level_3.txt", 42.3f);
     auto ho = Engine::getWindowSize().y - (ls::getHeight() * 40.f);
     ls::setOffset(Vector2f(0, ho));
 
@@ -24,7 +25,7 @@ void Level3Scene::Load() {
         player->setPosition(ls::getTilePosition(ls::findTiles(ls::START)[0]));
         auto s = player->addComponent<ShapeComponent>();
         s->setShape<sf::RectangleShape>(Vector2f(20.f, 30.f));
-        s->getShape().setFillColor(Color::Magenta);
+        s->getShape().setFillColor(Color::Blue);
         s->getShape().setOrigin(Vector2f(10.f, 15.f));
 
 
@@ -36,12 +37,22 @@ void Level3Scene::Load() {
         // pl->setPosition({100, 100});
 
 
-
-
-
-
         // *********************************
     }
+
+    // Create Turret
+    {
+        auto turret = makeEntity();
+        turret->setPosition(ls::getTilePosition(ls::findTiles('t')[0]) +
+                            Vector2f(20, 0));
+        auto s = turret->addComponent<ShapeComponent>();
+        s->setShape<sf::CircleShape>(16.f, 3);
+        s->getShape().setFillColor(Color::Red);
+        s->getShape().setOrigin(Vector2f(16.f, 16.f));
+        turret->addComponent<EnemyTurretComponent>();
+    }
+
+
 
     // Add physics colliders to level tiles.
     {
@@ -80,25 +91,25 @@ void Level3Scene::Update(const double& dt) {
         Engine::ChangeScene((Scene*)&level3);
     }
 
-    static float rocktime = 0.0f;
-    rocktime -= dt;
-
-    if (rocktime <= 0.f){
-        rocktime  = 5.f;
-        auto rock = makeEntity();
-        rock->setPosition(ls::getTilePosition(ls::findTiles('r')[0]) +
-                          Vector2f(0, 40) );
-        rock->addComponent<BulletComponent>(30.f);
-        auto s = rock->addComponent<ShapeComponent>();
-        s->setShape<sf::CircleShape>(40.f);
-        s->getShape().setFillColor(Color::Cyan);
-        s->getShape().setOrigin(Vector2f(40.f, 40.f));
-        auto p = rock->addComponent<PhysicsComponent>(true, Vector2f(75.f, 75.f));
-        p->setRestitution(.4f);
-        p->setFriction(.0001f);
-        p->impulse(Vector2f(-3.f, 0));
-        p->setMass(1000000000.f);
-    }
+//    static float rocktime = 0.0f;
+//    rocktime -= dt;
+//
+//    if (rocktime <= 0.f){
+//        rocktime  = 5.f;
+//        auto rock = makeEntity();
+//        rock->setPosition(ls::getTilePosition(ls::findTiles('r')[0]) +
+//                          Vector2f(0, 40) );
+//        rock->addComponent<BulletComponent>(30.f);
+//        auto s = rock->addComponent<ShapeComponent>();
+//        s->setShape<sf::CircleShape>(40.f);
+//        s->getShape().setFillColor(Color::Cyan);
+//        s->getShape().setOrigin(Vector2f(40.f, 40.f));
+//        auto p = rock->addComponent<PhysicsComponent>(true, Vector2f(75.f, 75.f));
+//        p->setRestitution(.4f);
+//        p->setFriction(.0001f);
+//        p->impulse(Vector2f(-3.f, 0));
+//        p->setMass(1000000000.f);
+//    }
 
 }
 

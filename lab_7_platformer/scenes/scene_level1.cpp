@@ -31,7 +31,7 @@ void Level1Scene::Load() {
     player->setPosition(ls::getTilePosition(ls::findTiles(ls::START)[0]));
     auto s = player->addComponent<ShapeComponent>();
     s->setShape<sf::RectangleShape>(Vector2f(20.f, 30.f));
-    s->getShape().setFillColor(Color::Magenta);
+    s->getShape().setFillColor(Color::Blue);
     s->getShape().setOrigin(Vector2f(10.f, 15.f));
 
     player->addComponent<PlayerPhysicsComponent>(Vector2f(20.f, 30.f));

@@ -20,7 +20,7 @@ public:
         else{
             music.setLoop(true);
 
-            music.setVolume(20);
+            music.setVolume(15);
 
             music.play();
         }
